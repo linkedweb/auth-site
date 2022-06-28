@@ -1,14 +1,22 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 
 require('dotenv').config();
 
+const loginRoute = require('./routes/auth/login');
+const logoutRoute = require('./routes/auth/logout');
+const meRoute = require('./routes/auth/me');
 const registerRoute = require('./routes/auth/register');
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
+app.use(loginRoute);
+app.use(logoutRoute);
+app.use(meRoute);
 app.use(registerRoute);
 
 app.use(express.static('client/build'));
